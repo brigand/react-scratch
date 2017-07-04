@@ -1,0 +1,14 @@
+.Button {
+  display: inline-block;
+  position: relative;
+  cursor: pointer;
+  padding: 1em;
+  overflow: hidden;
+  background: #ec407a;
+  color: white;
+  user-select: none;
+}
+
+.Button:hover {
+  background: #f06292;
+}
