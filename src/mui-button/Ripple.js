@@ -16,16 +16,13 @@ class Ripple extends React.Component {
 
   componentDidMount() {
     setTimeout(() => {
-      this.setState({in: true});
+      this.setState({in: true, out: false});
       setTimeout(() => {
-        this.setState({
-          in: false,
-          out: true,
-        });
+        this.setState({in: false, out: true});
         setTimeout(() => {
           this.props.onRequestRemove();
         }, DURATION);
-      }, DURATION + 50);
+      }, DURATION);
     }, 15);
   }
 
@@ -41,7 +38,7 @@ class Ripple extends React.Component {
 
     const style = {};
     if (this.props.left) style.left = this.props.left;
-    if (this.props.top) style.top = this.props.right;
+    if (this.props.top) style.top = this.props.top;
 
     return (
       <div className={className} style={style} />

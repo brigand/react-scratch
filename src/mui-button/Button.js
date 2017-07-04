@@ -16,25 +16,26 @@ class Button extends React.Component {
   render() {
     return (
       <div
-        ref={el => this.el = el}
         className="Button"
         onClick={(e) => {
-          const left = e.pageX - this.el.offsetLeft;
-          const top = e.pageY - this.el.offsetTop;
-          this.setState({
-            ripples: [...this.state.ripples, {left, top, id: Math.random().toString()}],
-          });
+          this.props.onClick();
+          const left = e.pageX - e.currentTarget.offsetLeft;
+          const top = e.pageY - e.currentTarget.offsetTop;
+          const id = Math.random().toString();
+          const ripples = [...this.state.ripples, {left, top, id}];
+          this.setState({ripples});
         }}
       >
         {this.props.children}
-        {this.state.ripples.map(({top, left, id}) =>
+        {this.state.ripples.map(({left, top, id}) =>
           <Ripple
-            top={`${top}px`}
             left={`${left}px`}
+            top={`${top}px`}
+            key={id}
             onRequestRemove={() => {
               this.setState(state => ({
                 ripples: state.ripples.filter(x => x.id !== id),
-              }));
+              }))
             }}
           />
         )}
