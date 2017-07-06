@@ -57,6 +57,14 @@ class TimeInput extends React.Component {
           value={this.state.inputValue}
           range={this.state.inputRange}
           onChange={(raw, inputRange) => {
+            if (raw.length === 7 || raw.length === 5) {
+              const next = this.state.inputRange[0];
+              console.log(`raw.length is 7, ticking up range`);
+              inputRange = [next, next];
+              setTimeout(() => {
+                this.setState({inputRange});
+              }, 10);
+            }
             const inputValue = this.normalizeString(raw);
             const seconds = this.stringToSeconds(inputValue);
             const fixed = this.getTimeData(seconds).str;
