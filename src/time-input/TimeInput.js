@@ -82,15 +82,18 @@ class TimeInput extends React.Component {
           {this.getDigit(0, timeData)}
           {this.getDigit(1, timeData)}
           <div className={cssItemSmall}>
-            :
+            h
           </div>
           {this.getDigit(2, timeData)}
           {this.getDigit(3, timeData)}
           <div className={cssItemSmall}>
-            :
+            m
           </div>
           {this.getDigit(4, timeData)}
           {this.getDigit(5, timeData)}
+          <div className={cssItemSmall}>
+            s
+          </div>
           {this.renderCursor()}
         </div>
       </div>
@@ -109,7 +112,12 @@ class TimeInput extends React.Component {
       <div
         className={className}
         ref={el => {
-          if (el) this.offsets[index] = el.offsetLeft + el.offsetWidth;
+          if (el) {
+            this.offsets[index] = el.offsetLeft + el.offsetWidth;
+            if (index === 0) {
+              this.offsets[-1] = el.offsetLeft;
+            }
+          }
         }}
         onClick={() => {
           setTimeout(() => {
