@@ -23,7 +23,9 @@ class ControlledInput extends React.Component {
 
   updateSelection(range) {
     this.input.focus();
-    this.input.setSelectionRange(range[0], range[1]);
+    if (this.input.selectionStart !== range[0] || this.input.selectionEnd !== range[1]) {
+      this.input.setSelectionRange(range[0], range[1]);
+    }
   }
 
   componentWillReceiveProps(nextProps) {
