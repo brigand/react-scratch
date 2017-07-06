@@ -95,7 +95,7 @@ class TimeInput extends React.Component {
   }
 
   getDigit(index, {str, firstIndex}) {
-    let className = index >= firstIndex ? cssItem : cssItemPlaceholder;
+    let className = firstIndex !== -1 && index >= firstIndex ? cssItem : cssItemPlaceholder;
 
     const range = this.state.inputRange;
     if (index >= range[0] && index < range[1]) {
