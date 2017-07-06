@@ -14,6 +14,7 @@ class TimeInput extends React.Component {
       inputValue: '000000',
       inputRange: [0, 0],
     };
+    this.offsets = [null, null, null, null, null, null];
   }
 
   handleDisplayClick(e) {
@@ -43,13 +44,12 @@ class TimeInput extends React.Component {
   stringToSeconds(str) {
     str = this.normalizeString(str);
     const h = Number(str.slice(0, 2)) * 60 * 60;
-    const m = Number(str.slice(2, 3)) * 60;
+    const m = Number(str.slice(2, 4)) * 60;
     const s = Number(str.slice(4));
     return h + m + s;
   }
 
   render() {
-    console.log('inputRange', this.state.inputRange);
     const timeData = this.getTimeData();
     return (
       <div className="TimeInput">
@@ -58,8 +58,10 @@ class TimeInput extends React.Component {
           range={this.state.inputRange}
           onChange={(raw, inputRange) => {
             const inputValue = this.normalizeString(raw);
-            this.props.onChange(this.stringToSeconds(inputValue));
-            this.setState({inputValue, inputRange})
+            const seconds = this.stringToSeconds(inputValue);
+            const fixed = this.getTimeData(seconds).str;
+            this.props.onChange(seconds);
+            this.setState({inputValue: fixed, inputRange})
           }}
           onRangeChange={inputRange => this.setState({inputRange})}
         />
@@ -86,7 +88,7 @@ class TimeInput extends React.Component {
           </div>
           {this.getDigit(4, timeData)}
           {this.getDigit(5, timeData)}
-          <div className="TimeInput__Display__Cursor" />
+          {this.renderCursor()}
         </div>
       </div>
     );
@@ -101,10 +103,28 @@ class TimeInput extends React.Component {
     }
 
     return (
-      <div className={className}>
+      <div className={className} ref={el => {
+        if (el) this.offsets[index] = el.offsetLeft + el.offsetWidth;
+      }}>
         {str[index]}
       </div>
     );
+
+  }
+
+  renderCursor() {
+    const start = this.state.inputRange[0];
+    const active = this.offsets[start - 1];
+    if (active == null) {
+      return null;
+    }
+    const left = `${active - 1}px`;
+    return (
+      <div
+        className="TimeInput__Display__Cursor"
+        style={{left}}
+      />
+    )
   }
 }
 
