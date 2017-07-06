@@ -1,0 +1,45 @@
+.TimeInput {
+}
+
+.TimeInput__Input {
+  width: 0;
+  height: 0;
+  opacity: 0;
+}
+
+
+.TimeInput__Display {
+  width: 20em;
+  border: 1px solid #eee;
+  border-radius: 5px;
+  text-align: right;
+  position: relative;
+}
+
+.TimeInput__Display__Item {
+  line-height: 1em;
+  display: inline-block;
+  font-size: 3em;
+  color: black;
+}
+
+.TimeInput__Display__Item--placeholder,
+.TimeInput__Display__Item--small {
+  color: #ccc;
+}
+
+.TimeInput__Display__Item--small {
+  position: relative;
+  bottom: 0.2em;
+  font-size: 1.5em;
+  vertical-align: bottom;
+}
+
+.TimeInput__Display__Cursor {
+  position: absolute;
+  width: 2px;
+  height: 2.5em;
+  background: #aaa;
+  top: 0.25em;
+  right: 1.6em;
+}
