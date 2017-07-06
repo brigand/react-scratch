@@ -1,5 +1,7 @@
 import React from 'react';
 
+const DEBUG = true;
+
 class ControlledInput extends React.Component {
   constructor(props) {
     super(props);
@@ -20,10 +22,12 @@ class ControlledInput extends React.Component {
   }
 
   updateSelection(range) {
+    this.input.focus();
     this.input.setSelectionRange(range[0], range[1]);
   }
 
   componentWillReceiveProps(nextProps) {
+    if (DEBUG) console.log(`componentWillReceiveProps`, nextProps.range);
     if (!nextProps.range) {
       this.updateSelection([0, 0]);
     }
@@ -52,6 +56,7 @@ class ControlledInput extends React.Component {
   render() {
     const makeHandler = (name) => {
       handlers[name] = (event) => {
+        if (DEBUG) console.log(`makeHandler('${name}')(event)`);
         this.props[name] && this.props[name](event);
         this.propagateSelection();
       };
@@ -70,6 +75,7 @@ class ControlledInput extends React.Component {
         {...props}
         {...handlers}
         onChange={e => {
+          if (DEBUG) console.log(`onChange`);
           const range = this.getSelection();
           const value = e.target.value;
           this.props.onChange(value, range);

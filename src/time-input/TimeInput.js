@@ -11,7 +11,7 @@ class TimeInput extends React.Component {
     super(props);
 
     this.state = {
-      inputValue: '000000',
+      inputValue: this.getTimeData().str,
       inputRange: [0, 0],
     };
     this.offsets = [null, null, null, null, null, null];
@@ -36,6 +36,7 @@ class TimeInput extends React.Component {
 
   normalizeString(str) {
     if (!str) return '000000';
+    str = str.replace(/\D+/g, '');
     if (str.length > 6) str = str.slice(-6);
     str = str.padStart(6, 0);
     return str;
@@ -54,6 +55,10 @@ class TimeInput extends React.Component {
     return (
       <div className="TimeInput">
         <ControlledInput
+          className="TimeInput__Input"
+          ref={input => this.input = input}
+          type="tel"
+          pattern="\\d+"
           value={this.state.inputValue}
           range={this.state.inputRange}
           onChange={(raw, inputRange) => {
@@ -72,16 +77,6 @@ class TimeInput extends React.Component {
             this.setState({inputValue: fixed, inputRange})
           }}
           onRangeChange={inputRange => this.setState({inputRange})}
-        />
-        <ControlledInput
-          className="TimeInput__Input"
-          type="tel"
-          pattern="\\d+"
-          ref={input => this.input = input}
-          // value={this.state.inputValue}
-          // range={this.state.range}
-          // onChange={inputValue => this.setState({inputValue})}
-          // onRangeChange={inputRange => this.setState({inputRange})}
         />
         <div className="TimeInput__Display" onClick={e => this.handleDisplayClick(e)}>
           {this.getDigit(0, timeData)}
@@ -111,9 +106,17 @@ class TimeInput extends React.Component {
     }
 
     return (
-      <div className={className} ref={el => {
-        if (el) this.offsets[index] = el.offsetLeft + el.offsetWidth;
-      }}>
+      <div
+        className={className}
+        ref={el => {
+          if (el) this.offsets[index] = el.offsetLeft + el.offsetWidth;
+        }}
+        onClick={() => {
+          setTimeout(() => {
+            this.setState({inputRange: [index + 1, index + 1]})
+          }, 15);
+        }}
+      >
         {str[index]}
       </div>
     );
