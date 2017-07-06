@@ -35,6 +35,10 @@
   vertical-align: bottom;
 }
 
+.TimeInput__Display__Item--selected {
+  background: rgba(0, 50, 255, 0.3);
+}
+
 .TimeInput__Display__Cursor {
   position: absolute;
   width: 2px;

@@ -5,7 +5,7 @@ import './index.css';
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {seconds: 0};
+    this.state = {seconds: 7 + 120};
   }
   render() {
     return (
