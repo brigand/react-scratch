@@ -17,6 +17,7 @@ class Button extends React.Component {
     return (
       <div
         className="Button"
+        {...this.props}
         onClick={(e) => {
           this.props.onClick();
           const left = e.pageX - e.currentTarget.offsetLeft;
