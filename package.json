@@ -2,6 +2,7 @@
   "name": "scratch",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://brigand.github.io/scratch/",
   "dependencies": {
     "prop-types": "^15.5.10",
     "react": "^15.5.4",
@@ -29,6 +30,7 @@
     "extract-text-webpack-plugin": "2.1.0",
     "file-loader": "0.11.1",
     "fs-extra": "3.0.1",
+    "gh-pages": "^1.0.0",
     "html-webpack-plugin": "2.28.0",
     "jest": "20.0.3",
     "object-assign": "4.1.1",
@@ -48,7 +50,9 @@
   "scripts": {
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
-    "test": "node scripts/test.js --env=jsdom"
+    "test": "node scripts/test.js --env=jsdom",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "jest": {
     "collectCoverageFrom": [
