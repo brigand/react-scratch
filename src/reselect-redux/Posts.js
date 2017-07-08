@@ -1,4 +1,5 @@
 import React from 'react';
+import {createSelector} from 'reselect'
 import {connect} from 'react-redux';
 
 let count = 0;
@@ -21,16 +22,18 @@ class Posts extends React.Component {
   }
 }
 
+const getListing = createSelector(
+  state => state.postsById,
+  state => state.usersById,
+  state => state.postListing,
+  (posts, users, listing) => listing.map(id => {
+    const post = posts[id];
+    return {...post, user: users[post.author]}
+  })
+);
+
 const mapState = (state) => {
-  const byId = state.postsById;
-  const usersById = state.usersById;
-  const listing = state.postListing;
-  return {
-    posts: listing.map(id => {
-      const post = byId[id];
-      return {...post, user: usersById[post.author]}
-    }),
-  };
+  return {posts: getListing(state)};
 };
 
 export default connect(mapState)(Posts);
