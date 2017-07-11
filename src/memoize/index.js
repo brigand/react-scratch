@@ -14,6 +14,12 @@ class App extends React.Component {
       posts,
       newPost: '',
     };
+
+    this.handleSelect = this.handleSelect.bind(this);
+  }
+
+  handleSelect(post) {
+    this.setState({post});
   }
 
   tick() {
@@ -31,9 +37,7 @@ class App extends React.Component {
         {this.renderSingle()}
         {this.renderInput()}
         <RedditPosts
-          onSelect={(post) => {
-            this.setState({post});
-          }}
+          onSelect={this.handleSelect}
           posts={this.state.posts}
         />
       </div>
