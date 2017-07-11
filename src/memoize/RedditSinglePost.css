@@ -1,0 +1,17 @@
+.RSP {
+  padding: 0.5em;
+  margin-bottom: 1em;
+  border: 1px solid #eee;
+}
+
+.RSP__Heading {
+  color: #777;
+  font-family: 'Comic Sans', fantasy;
+}
+
+.RSP__Icon {
+  width: 1em;
+  height: 1em;
+  display: inline-block;
+  margin-right: 1em;
+}

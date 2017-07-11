@@ -1,0 +1,4 @@
+#!/bin/bash
+
+curl 'https://www.reddit.com/r/subreddit/new.json?sort=new' > src/memoize/data.json -H 'user-agent: brigand 1.0' | jq . > reddit.json
+
